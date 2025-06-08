@@ -1,0 +1,59 @@
+BONUS CHALLENGE FORM
+--------------------
+
+For each bonus challenge you have implemented, please replace the sentence "We are not entitled to this bonus."
+with a short description of:
+
+1. How it was implemented in your code
+2. Where it was used (in which class methods).
+3. How you tested that it is working correctly.
+
+--------------------
+
+1. Fully supporting all configuration fields and avoiding the use of magic numbers
+
+1. When we had to freeze a player due to point or penalty we used the freeze times given in the config file(e.g: pointFreezeMillis)
+ , We added an array of table size and initialized it using the tableSize field in the config file instead of using magic numbers
+ , When deleating or placing a card we slept the thread by tableDelayMillis
+ , Used the endGamePauseMillis, Used other field such as turnTimeoutMillis, etc...
+
+
+2. It was used in various class methods, such as point and penalty for the Player class
+  , updateTimerDisplay for the Dealer class, place and remove cards for the Table class.
+
+
+3. Running tests on the code after changing the config file.
+--------------------
+
+2. Terminating all threads (that you created) gracefully and in reverse order to the order they were created in.
+
+We are not entitled to this bonus.
+
+--------------------
+
+3. Handling the config.turnTimeoutMillis value as follows:
+config.turnTimeoutMillis < 0: display nothing.
+config.turnTimeoutMillis = 0: display a timer since the last action (reshuffle or set collected).
+Note: in modes without a countdown timer the dealer must ensure there is always at least one legal set on the table.
+
+1. We added a condition on the run method in the Dealer class, where it enters it only if the turnTimeoutMillis
+   is bigger or equals 0, then handled the rest of the bonus requirements in the updateTimerDisplay method in
+   the Dealer class.
+
+2. in the run and updateTimerDisplay methods in the Dealer class.
+
+3. Running tests on the code after changing the turnTimeoutMillis in the config.
+--------------------
+
+4. Making sure that the threads do not wake up unless some actual job needs to be done (e.g., a value needs to be
+changed on the display, key input needs to be handled, etc.) and the only threads created by you are:
+1 thread per player + 1 additional thread for non-human players.
+
+
+1. We slept the threads we created and woke them up only when we needed them to do something for us.
+
+2. We implemented this on the Player thread, ai thread and Dealer thread. (due to the late announcement regarding
+  time thread we had the Dealer thread do all the time-related work therefore the Dealer thread isn't put to sleep for
+  long periods of time).
+
+3. Running tests to see if the target thread is awake in times it should be asleep.
